@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 
 #include <X11/Xlib.h>
 
@@ -105,5 +106,19 @@ void b_fill_polygon(const b_frame_s * const frame,
   XSetForeground(b_get_display(frame), b_get_gc(frame), color);
   XFillPolygon(b_get_display(frame), b_get_window(frame), b_get_gc(frame),
                points, nb_points, Complex, CoordModeOrigin);
+  XFlush(b_get_display(frame));
+}
+
+
+
+void b_draw_text(const b_frame_s * const frame,
+                 const int               x,
+                 const int               y,
+                 const char      * const text,
+                 const b_color_t         color)
+{
+  XSetForeground(b_get_display(frame), b_get_gc(frame), color);
+  XDrawString(b_get_display(frame), b_get_window(frame), b_get_gc(frame),
+               x, y, text, strlen(text));
   XFlush(b_get_display(frame));
 }

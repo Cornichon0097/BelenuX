@@ -4,36 +4,35 @@
 #
 
 # Default output file.
-output_file="include/color.h"
-# Default RGB file.
-rgb_file="res/rgb.txt"
+outfile="include/color.h"
 
-# Checks options.
-while getopts ":o:r:h" arg
-do
-  case ${arg} in
-    o) # Output file.
-      output_file=${OPTARG}
-      ;;
-    r) # RGB file.
-      rgb_file=${OPTARG}
-      ;;
-    h) # Help.
-      echo "Usage: ${0} [-o output_file] [-r rgb_file]"
-      echo "Default output file: ${output_file}."
-      echo "Default RGB file: ${rgb_file}."
-      exit 0
-      ;;
-    :) # Missing argument.
-      echo "${0}: missing file name after -${OPTARG}." >&2
-      exit 1
-      ;;
-    ?) # Invalid option.
-      echo "${0}: invalid option -${OPTARG}." >&2
-      exit 2
-      ;;
-  esac
-done
+function check_arguments()
+{
+  # Checks options.
+  while getopts ":o:h" arg
+  do
+    case ${arg} in
+      o) # Output file.
+        outfile=${OPTARG}
+        ;;
+      h) # Help.
+        echo "Usage: ${0} [-o outfile] <infile>"
+        exit 0
+        ;;
+      :) # Missing argument.
+        echo "${0}: missing file name after -${OPTARG}." >&2
+        exit 1
+        ;;
+      ?) # Invalid option.
+        echo "${0}: invalid option -${OPTARG}." >&2
+        exit 2
+        ;;
+    esac
+  done
+}
+
+
+set infile
 
 # Checks if output file already exists.
 if [ -f ${output_file} ]
@@ -75,6 +74,7 @@ then
   # Puts each color in output file.
   echo -n "Writing in output file..."
   printf "/*\n * Some colors.\n */\n" >> ${output_file}
+
   for line in $(awk '{print NR}' rgb-tmp.txt)
   do
     # Puts '#define' in output file.
@@ -98,7 +98,7 @@ then
     done
 
     # Puts color value in output file.
-    printf "0x%06X\n" ${color} >> ${output_file}
+    printf "0x%06x\n" ${color} >> ${output_file}
   done
 
   # Puts color type definition in output file.

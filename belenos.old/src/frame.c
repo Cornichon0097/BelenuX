@@ -5,7 +5,7 @@
 #include <belenos/frame.h>
 #include <belenos/component.h>
 
-#define BORDERWIDTH 1U
+#define BORDER_WIDTH 1U
 
 
 struct b_frame
@@ -28,7 +28,7 @@ static int b_create_window(struct b_frame * const frame,
   frame->window = XCreateSimpleWindow(frame->display,
                                       XRootWindow(frame->display,
                                                   frame->default_screen),
-                                      x, y, width, height, BORDERWIDTH,
+                                      x, y, width, height, BORDER_WIDTH,
                                       XBlackPixel(frame->display,
                                                   frame->default_screen),
                                       XWhitePixel(frame->display,

@@ -34,6 +34,7 @@ int main(void)
   b_fill_rectangle(frame, 0, 0, 100, 100, b_rgb(255, 0, 0));
   b_draw_arc(frame, 300, 0, 100, 100, 0, 360, 0x00FF00);
   b_fill_polygon(frame, triangle_points, TRIANGLE_NB_POINTS, PURPLE);
+  b_draw_text(frame, 0, 100, "test", BLACK);
 
   while (b_is_open(frame)) {}
 

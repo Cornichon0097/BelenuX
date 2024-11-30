@@ -21,5 +21,7 @@ void b_fill_arc(const b_frame_s * frame, int x, int y, unsigned int width, unsig
 
 void b_fill_polygon(const b_frame_s * frame, b_point_s * points, int nb_points, b_color_t color);
 
+void b_draw_text(const b_frame_s * frame, int x, int y, const char * text, b_color_t color);
+
 
 #endif /* draw.h */
