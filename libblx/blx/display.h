@@ -3,7 +3,7 @@
 
 #include <blx/types.h>
 
-blx_t *blx_create(int x, int y unsigned int width, unsigned int height);
+blx_t *blx_create(int x, int y, unsigned int width, unsigned int height);
 
 void blx_map(blx_t *blx);
 

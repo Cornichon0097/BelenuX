@@ -14,4 +14,4 @@ struct blx {
 
 typedef struct blx blx_t;
 
-#endif BLX_TYPES_H /* blx/types.h */
+#endif /* blx/types.h */
