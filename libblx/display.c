@@ -74,8 +74,8 @@ static void blx_set_handler(blx_t *const blx)
                                                 | ButtonReleaseMask
                                                 | StructureNotifyMask);
 
-        blx->closing = XInternAtom(blx->display, "WM_DELETE_WINDOW", False);
-        XSetWMProtocols(blx->display, blx->window, &(blx->closing), 1);
+        blx->close_op = XInternAtom(blx->display, "WM_DELETE_WINDOW", False);
+        XSetWMProtocols(blx->display, blx->window, &(blx->close_op), 1);
 }
 
 /**
@@ -97,7 +97,7 @@ blx_t *blx_create(const int x, const int y,
         blx_t *blx = (blx_t *) malloc(sizeof(blx_t));
 
         blx_init(blx, width, height);
-        blx_set_hints(blx, x, y);
+        /* blx_set_hints(blx, x, y); */
         blx_set_attr(blx);
         blx_set_handler(blx);
 

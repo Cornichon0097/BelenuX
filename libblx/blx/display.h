@@ -3,6 +3,8 @@
 
 #include <blx/types.h>
 
+#define blx_refresh(blx) (XFlush((blx)->display))
+
 blx_t *blx_create(int x, int y, unsigned int width, unsigned int height);
 
 void blx_map(blx_t *blx);

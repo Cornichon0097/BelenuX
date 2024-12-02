@@ -3,6 +3,7 @@
 
 #include <unistd.h>
 
+#include <version.h>
 #include <blx/blx.h>
 
 int main(const int argc, char *const argv[])
@@ -22,9 +23,15 @@ int main(const int argc, char *const argv[])
                 }
         }
 
-        blx = blx_create(0, 0, 100, 100);
+        blx = blx_create(100, 0, 100, 100);
+
         blx_map(blx);
-        getchar();
+
+        XSetForeground(blx->display, blx->gc, BLACK);
+        while (blx_open(blx)) {
+                blx_frec(blx, 0, 0, 100, 100);
+        }
+
         blx_destroy(&blx);
 
         return EXIT_SUCCESS;

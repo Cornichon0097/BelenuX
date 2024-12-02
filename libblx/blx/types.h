@@ -9,9 +9,11 @@ struct blx {
         int      screen;
         Window   window;
         GC       gc;
-        Atom     closing;
+        Atom     close_op;
 };
 
 typedef struct blx blx_t;
+
+typedef XPoint blx_point_t;
 
 #endif /* blx/types.h */
