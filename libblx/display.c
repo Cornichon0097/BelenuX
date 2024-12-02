@@ -111,13 +111,8 @@ blx_t *blx_create(const int x, const int y,
  */
 void blx_map(blx_t *const blx)
 {
-        XEvent event;
-
         XMapWindow(blx->display, blx->window);
-
-        do {
-                XNextEvent(blx->display, &event);
-        } while (event.type != Expose);
+        XCheckTypedWindowEvent(blx->display, blx->window, MapNotify, NULL);
 }
 
 /**
@@ -127,8 +122,8 @@ void blx_map(blx_t *const blx)
  */
 void blx_unmap(blx_t *const blx)
 {
-  XUnmapWindow(blx->display, blx->window);
-  XCheckTypedWindowEvent(blx->display, blx->window, UnmapNotify, NULL);
+        XUnmapWindow(blx->display, blx->window);
+        XCheckTypedWindowEvent(blx->display, blx->window, UnmapNotify, NULL);
 }
 
 /**
