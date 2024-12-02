@@ -666,6 +666,8 @@
 #define DARK_RED               0x8b0000
 #define LIGHT_GREEN            0x90ee90
 
-typedef unsigned int color_t;
+typedef unsigned int blx_color_t;
+
+#define blx_rgb(r, g, b) ((blx_color_t) ((r << 16) | (g << 8) | b))
 
 #endif /* color.h */
