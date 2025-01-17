@@ -7,11 +7,19 @@ Session.vim
 *~
 
 # ---> C
+# Prerequisites
+*.d
+
 # Object files
 *.o
 *.ko
 *.obj
 *.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
 
 # Precompiled Headers
 *.gch
@@ -19,7 +27,7 @@ Session.vim
 
 # Libraries
 *.lib
-#*.a
+*.a
 *.la
 *.lo
 
@@ -39,6 +47,20 @@ Session.vim
 
 # Debug files
 *.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
 
 # ---> Directories
+# Build directory
 build
+
