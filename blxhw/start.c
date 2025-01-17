@@ -3,8 +3,20 @@
 
 #include <unistd.h>
 
-#include <version.h>
 #include <blx/blx.h>
+
+int run(__attribute__((unused)) blx_t *const blx, blx_event_t *const event)
+{
+        switch (event->type) {
+        case ButtonPress:
+                return BLX_EXIT_CODE;
+                break;
+        default:
+                break;
+        }
+
+        return BLX_DEFAULT_CODE;
+}
 
 int main(const int argc, char *const argv[])
 {
@@ -27,10 +39,10 @@ int main(const int argc, char *const argv[])
 
         blx_map(blx);
 
-        XSetForeground(blx->display, blx->gc, BLACK);
-        while (blx_open(blx)) {
-                blx_frec(blx, 0, 0, 100, 100);
-        }
+        blx_color(blx, RED);
+        blx_drec(blx, 0, 0, 100, 100);
+
+        blx_run(blx, &run);
 
         blx_destroy(&blx);
 

@@ -15,26 +15,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#include <stdlib.h>
+#ifndef BLX_FRAME_H
+#define BLX_FRAME_H
 
-#include <blx/types.h>
-#include <blx/event.h>
+blx_t *blx_create(int x, int y, unsigned int width, unsigned int height);
 
-void blx_run(blx_t *const blx, int (*runner)(blx_t *, blx_event_t *))
-{
-        XEvent *event = (XEvent *) malloc(sizeof(XEvent));
-        int exit_code;
+void blx_map(blx_t *blx);
 
-        XFlush(blx->display);
+void blx_unmap(blx_t *blx);
 
-        do {
-                XNextEvent(blx->display, event);
+void blx_destroy(blx_t **blx);
 
-                if (BLX_CLOSE_OP(blx, event))
-                        exit_code = BLX_EXIT_CODE | runner(blx, event);
-                else
-                        exit_code = runner(blx, event);
-        } while (!(exit_code & BLX_EXIT_CODE));
-
-        free(event);
-}
+#endif /* blx/frame.h */

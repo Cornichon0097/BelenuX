@@ -1,12 +1,30 @@
 /*
+ *
+ * Copyright (C) 2020-2025 Antoni Blanche (antoni.blanche77@gmail.com)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/*
  * Color header file (generated).
  *
  * This header file provides several hexadecimal colors that are compatible with
  * Belenos color system, the color type for Belenos (based on Xlib color system)
  * and a rgb to hexadecimal color function.
  */
-#ifndef COLOR_H
-#define COLOR_H
+#ifndef BLX_COLOR_H
+#define BLX_COLOR_H
 
 #define SNOW                   0xfffafa
 #define GHOST_WHITE            0xf8f8ff
@@ -668,6 +686,8 @@
 
 typedef unsigned int blx_color_t;
 
-#define blx_rgb(r, g, b) ((blx_color_t) ((r << 16) | (g << 8) | b))
+blx_color_t blx_rgb(int r, int g, int b);
 
-#endif /* color.h */
+void blx_color(blx_t *blx, blx_color_t color);
+
+#endif /* blx/color.h */
