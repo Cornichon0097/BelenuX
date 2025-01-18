@@ -9,7 +9,8 @@ int run(__attribute__((unused)) blx_t *const blx, blx_event_t *const event)
 {
         switch (event->type) {
         case ButtonPress:
-                return BLX_EXIT_CODE;
+                blx_color(blx, RED);
+                blx_frec(blx, 0, 0, 100, 100);
                 break;
         default:
                 break;
@@ -37,10 +38,8 @@ int main(const int argc, char *const argv[])
 
         blx = blx_create(100, 0, 100, 100);
 
-        blx_map(blx);
-
-        blx_color(blx, RED);
-        blx_drec(blx, 0, 0, 100, 100);
+        blx_color(blx, BLACK);
+        blx_frec(blx, 0, 0, 100, 100);
 
         blx_run(blx, &run);
 

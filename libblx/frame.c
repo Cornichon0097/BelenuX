@@ -26,6 +26,7 @@
 #define BORDER_WIDTH 1U
 
 static void blx_init(blx_t *const blx,
+                     const unsigned int x, const unsigned int y,
                      const unsigned int width, const unsigned int height)
 {
         blx->display = XOpenDisplay(NULL);
@@ -33,7 +34,7 @@ static void blx_init(blx_t *const blx,
         blx->gc      = XDefaultGC(blx->display, blx->screen);
         blx->window  = XCreateSimpleWindow(blx->display,
                                         XRootWindow(blx->display, blx->screen),
-                                        0, 0, width, height, BORDER_WIDTH,
+                                        x, y, width, height, BORDER_WIDTH,
                                         XBlackPixel(blx->display, blx->screen),
                                         XWhitePixel(blx->display, blx->screen));
 }
@@ -72,36 +73,33 @@ static void blx_set_handler(blx_t *const blx)
         XSetWMProtocols(blx->display, blx->window, &(blx->close_op), 1);
 }
 
+static void blx_map(blx_t *const blx)
+{
+        XEvent event;
+
+        XMapWindow(blx->display, blx->window);
+        XWindowEvent(blx->display, blx->window, ExposureMask, &event);
+}
+
 blx_t *blx_create(const int x, const int y,
                   const unsigned int width, const unsigned int height)
 {
         blx_t *blx = (blx_t *) malloc(sizeof(blx_t));
 
-        blx_init(blx, width, height);
+        blx_init(blx, x, y, width, height);
         blx_set_hints(blx, x, y);
         blx_set_attr(blx);
         blx_set_handler(blx);
+        blx_map(blx);
 
         return blx;
 }
 
-void blx_map(blx_t *const blx)
-{
-        XMapWindow(blx->display, blx->window);
-        XCheckTypedWindowEvent(blx->display, blx->window, MapNotify, NULL);
-}
-
-void blx_unmap(blx_t *const blx)
-{
-        XUnmapWindow(blx->display, blx->window);
-        XCheckTypedWindowEvent(blx->display, blx->window, UnmapNotify, NULL);
-}
-
 void blx_destroy(blx_t **const blx)
 {
+        XUnmapWindow((*blx)->display, (*blx)->window);
         XCloseDisplay((*blx)->display);
         free(*blx);
 
         *blx = NULL;
 }
-

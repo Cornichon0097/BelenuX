@@ -25,8 +25,6 @@ void blx_run(blx_t *const blx, int (*runner)(blx_t *, blx_event_t *))
         XEvent *event = (XEvent *) malloc(sizeof(XEvent));
         int exit_code;
 
-        XFlush(blx->display);
-
         do {
                 XNextEvent(blx->display, event);
 

@@ -39,6 +39,7 @@ void blx_frec(blx_t *const blx, const int x, const int y,
               const unsigned int width, const unsigned int height)
 {
         XFillRectangle(blx->display, blx->window, blx->gc, x, y, width, height);
+        XFlush(blx->display);
 }
 
 void blx_darc(blx_t *const blx, const int x, const int y,
