@@ -684,7 +684,7 @@
 #define DARK_RED               0x8b0000
 #define LIGHT_GREEN            0x90ee90
 
-typedef unsigned int blx_color_t;
+typedef unsigned long blx_color_t;
 
 blx_color_t blx_rgb(int r, int g, int b);
 
