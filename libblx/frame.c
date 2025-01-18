@@ -87,7 +87,10 @@ blx_t *blx_create(const int x, const int y,
         blx_t *blx = (blx_t *) malloc(sizeof(blx_t));
 
         blx_init(blx, x, y, width, height);
-        blx_set_hints(blx, x, y);
+
+        if ((x > 0) || (y > 0))
+                blx_set_hints(blx, x, y);
+
         blx_set_attr(blx);
         blx_set_handler(blx);
         blx_map(blx);
