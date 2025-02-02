@@ -20,18 +20,20 @@
 #include <blx/types.h>
 #include <blx/event.h>
 
-void blx_run(blx_t *const blx, int (*runner)(blx_t *, blx_event_t *))
+void blx_loop(blx_t *const blx, int (*runner)(blx_t *, blx_event_t *))
 {
         XEvent *event = (XEvent *) malloc(sizeof(XEvent));
         int exit_code;
 
         do {
-                XNextEvent(blx->display, event);
+                while (XPending(blx->display)) {
+                        XNextEvent(blx->display, event);
 
-                if (BLX_CLOSE_OP(blx, event))
-                        exit_code = BLX_EXIT_CODE | runner(blx, event);
-                else
-                        exit_code = runner(blx, event);
+                        if (BLX_CLOSE_OP(blx, event))
+                                exit_code = BLX_EXIT_CODE | runner(blx, event);
+                        else
+                                exit_code = runner(blx, event);
+                }
         } while (!(exit_code & BLX_EXIT_CODE));
 
         free(event);

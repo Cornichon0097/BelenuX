@@ -15,3 +15,4 @@ target_compile_options(compiler_flags INTERFACE
 add_subdirectory(libblx)
 
 add_subdirectory(blxhw)
+# add_subdirectory(blxcalc)

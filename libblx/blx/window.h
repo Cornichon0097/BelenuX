@@ -18,7 +18,19 @@
 #ifndef BLX_FRAME_H
 #define BLX_FRAME_H
 
-blx_t *blx_create(int x, int y, unsigned int width, unsigned int height);
+blx_t *blx_create(unsigned int width, unsigned int height);
+
+void blx_set_location(blx_t *blx, int x, int y);
+
+void blx_set_title(blx_t *blx, const char *title);
+
+void blx_fixe_size(blx_t *blx);
+
+void blx_show(blx_t *blx);
+
+void blx_hide(blx_t *blx);
+
+void blx_clear_window(blx_t *blx);
 
 void blx_destroy(blx_t **blx);
 

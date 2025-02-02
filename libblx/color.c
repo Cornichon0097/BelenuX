@@ -18,12 +18,17 @@
 #include <blx/types.h>
 #include <blx/color.h>
 
-blx_color_t blx_rgb(int r, int g, int b)
+blx_color_t blx_rgb(const int r, const int g, const int b)
 {
         return ((blx_color_t) ((r << 16) | (g << 8) | b));
 }
 
-void blx_color(blx_t *const blx, blx_color_t color)
+void blx_set_foreground(blx_t *const blx, const blx_color_t color)
 {
         XSetForeground(blx->display, blx->gc, color);
+}
+
+void blx_set_background(blx_t *const blx, const blx_color_t color)
+{
+        XSetBackground(blx->display, blx->gc, color);
 }

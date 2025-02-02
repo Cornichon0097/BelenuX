@@ -28,7 +28,7 @@ int main(const int argc, char *const argv[])
                 switch (opt) {
                 case 'v':
                         printf("%s version %d.%d\n", argv[0],
-                               BELENOX_VERSION_MAJOR, BELENOX_VERSION_MINOR);
+                               BELENUX_VERSION_MAJOR, BELENUX_VERSION_MINOR);
                         exit(EXIT_SUCCESS);
                         break;
                 default:
@@ -36,7 +36,7 @@ int main(const int argc, char *const argv[])
                 }
         }
 
-        blx = blx_create(100, 0, 100, 100);
+        blx = blx_create(100, 100);
 
         blx_color(blx, BLACK);
         blx_frec(blx, 0, 0, 100, 100);

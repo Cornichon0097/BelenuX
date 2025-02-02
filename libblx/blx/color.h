@@ -15,14 +15,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-/*
- * Color header file (generated).
- *
- * This header file provides several hexadecimal colors that are compatible with
- * Belenos color system, the color type for Belenos (based on Xlib color system)
- * and a rgb to hexadecimal color function.
- */
 #ifndef BLX_COLOR_H
 #define BLX_COLOR_H
 
@@ -688,6 +680,8 @@ typedef unsigned long blx_color_t;
 
 blx_color_t blx_rgb(int r, int g, int b);
 
-void blx_color(blx_t *blx, blx_color_t color);
+void blx_set_foreground(blx_t *blx, blx_color_t color);
+
+void blx_set_background(blx_t *blx, blx_color_t color);
 
 #endif /* blx/color.h */
