@@ -15,8 +15,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef BLX_COLOR_H
-#define BLX_COLOR_H
+#ifndef BLX_COLORS_H
+#define BLX_COLORS_H
 
 #define SNOW                   0xfffafa
 #define GHOST_WHITE            0xf8f8ff
@@ -684,4 +684,4 @@ void blx_set_foreground(blx_t *blx, blx_color_t color);
 
 void blx_set_background(blx_t *blx, blx_color_t color);
 
-#endif /* blx/color.h */
+#endif /* blx/colors.h */

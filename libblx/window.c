@@ -19,16 +19,28 @@
 #include <stdio.h>
 
 #include <blx/types.h>
-#include <blx/frame.h>
+#include <blx/window.h>
 
 #include <X11/Xutil.h>
 
 #define BORDER_WIDTH 1U
 
-static void blx_init(blx_t *const blx,
-                     const unsigned int width, const unsigned int height)
+blx_t *blx_create(const unsigned int width, const unsigned int height)
 {
+        blx_t *blx = (blx_t *) malloc(sizeof(blx_t));
+        /* XSetWindowAttributes attr; */
+
+        if (blx == NULL)
+                return NULL;
+
         blx->display = XOpenDisplay(NULL);
+
+        if (blx->display == NULL) {
+                fprintf(stderr, "%s\n", "Cannot connect to server X");
+                free(blx);
+                return NULL;
+        }
+
         blx->screen  = XDefaultScreen(blx->display);
         blx->gc      = XDefaultGC(blx->display, blx->screen);
         blx->window  = XCreateSimpleWindow(blx->display,
@@ -44,36 +56,29 @@ static void blx_init(blx_t *const blx,
                                                 | ButtonReleaseMask
                                                 | StructureNotifyMask);
 
+        /* attr.backing_store = Always;
+        XChangeWindowAttributes(blx->display, blx->window,
+                                CWBackingStore, &attr); */
+
         blx->close_op = XInternAtom(blx->display, "WM_DELETE_WINDOW", False);
         XSetWMProtocols(blx->display, blx->window, &(blx->close_op), 1);
-}
-
-blx_t *blx_create(const unsigned int width, const unsigned int height)
-{
-        blx_t *blx = (blx_t *) malloc(sizeof(blx_t));
-
-        if (blx != NULL) {
-                blx_init(blx, width, height);
-                blx_show(blx);
-        }
 
         return blx;
-}
-
-void blx_set_location(blx_t *const blx, const int x, const int y)
-{
-        XSizeHints hints;
-
-        hints.flags = PPosition;
-        hints.x     = x;
-        hints.y     = y;
-
-        XSetWMNormalHints(blx->display, blx->window, &hints);
 }
 
 void blx_set_title(blx_t *const blx, const char* const title)
 {
         XStoreName(blx->display, blx->window, title);
+}
+
+void blx_set_location(blx_t *const blx, const int x, const int y)
+{
+        XMoveWindow(blx->display, blx->window, x, y);
+}
+
+void blx_set_size(blx_t *const blx, const unsigned width, const unsigned height)
+{
+        XResizeWindow(blx->display, blx->window, width, height);
 }
 
 /* void GL_SetFrameRate(unsigned long frame_rate)
@@ -102,11 +107,6 @@ void blx_fixe_size(blx_t *const blx)
         XSetWMNormalHints(blx->display, blx->window, &hints);
 }
 
-void blx_clear_window(blx_t *const blx)
-{
-        XClearWindow(blx->display, blx->window);
-}
-
 void blx_show(blx_t *const blx)
 {
         XMapWindow(blx->display, blx->window);
@@ -117,10 +117,29 @@ void blx_hide(blx_t *const blx)
         XUnmapWindow(blx->display, blx->window);
 }
 
+void blx_clear(blx_t *const blx)
+{
+        XClearWindow(blx->display, blx->window);
+}
+
 void blx_destroy(blx_t **const blx)
 {
         XCloseDisplay((*blx)->display);
 
         free(*blx);
         *blx = NULL;
+}
+
+void blx_loop(blx_t *const blx, int (*update)(blx_t *))
+{
+        XEvent *event = (XEvent *) malloc(sizeof(XEvent));
+
+        do {
+                XNextEvent(blx->display, event);
+
+                if (update != NULL)
+                        update(blx);
+        } while (!BLX_CLOSE_OP(blx, event));
+
+        free(event);
 }

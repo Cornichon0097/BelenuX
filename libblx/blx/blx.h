@@ -20,9 +20,6 @@
 
 #include <blx/version.h>
 #include <blx/types.h>
-#include <blx/frame.h>
-#include <blx/color.h>
-#include <blx/draw.h>
-#include <blx/event.h>
+#include <blx/window.h>
 
 #endif /* blx/blx.h */

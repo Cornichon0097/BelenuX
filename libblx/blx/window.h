@@ -15,14 +15,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef BLX_FRAME_H
-#define BLX_FRAME_H
+#ifndef BLX_WINDOW_H
+#define BLX_WINDOW_H
+
+#include <string.h>
+
+#define BLX_CLOSE_OP(blx, e) ((e->type == ClientMessage) \
+                              && ((Atom) e->xclient.data.l[0] == blx->close_op))
+
+#define blx_dtext(blx, x, y, text) (XDrawString((blx)->display, (blx)->window, (blx)->gc, (x), (y), (text), strlen(text)))
 
 blx_t *blx_create(unsigned int width, unsigned int height);
 
+void blx_set_title(blx_t *blx, const char *title);
+
 void blx_set_location(blx_t *blx, int x, int y);
 
-void blx_set_title(blx_t *blx, const char *title);
+void blx_set_size(blx_t *blx, unsigned int width, unsigned int height);
 
 void blx_fixe_size(blx_t *blx);
 
@@ -30,8 +39,10 @@ void blx_show(blx_t *blx);
 
 void blx_hide(blx_t *blx);
 
-void blx_clear_window(blx_t *blx);
+void blx_clear(blx_t *blx);
 
 void blx_destroy(blx_t **blx);
 
-#endif /* blx/frame.h */
+void blx_loop(blx_t *blx, int (*update)(blx_t *));
+
+#endif /* blx/window.h */

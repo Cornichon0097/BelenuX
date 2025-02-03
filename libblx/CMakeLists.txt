@@ -1,7 +1,7 @@
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/blx/version.h.in"
                "${CMAKE_CURRENT_SOURCE_DIR}/blx/version.h")
 
-add_library(blx window.c color.c shape.c text.c event.c)
+add_library(blx window.c)
 target_link_libraries(blx PUBLIC X11 compiler_flags)
 target_include_directories(blx PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 

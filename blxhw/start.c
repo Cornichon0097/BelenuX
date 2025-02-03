@@ -5,18 +5,11 @@
 
 #include <blx/blx.h>
 
-int run(__attribute__((unused)) blx_t *const blx, blx_event_t *const event)
+int update(blx_t *const blx)
 {
-        switch (event->type) {
-        case ButtonPress:
-                blx_color(blx, RED);
-                blx_frec(blx, 0, 0, 100, 100);
-                break;
-        default:
-                break;
-        }
+        blx_dtext(blx, 20, 20, "Hello world!");
 
-        return BLX_DEFAULT_CODE;
+        return 0;
 }
 
 int main(const int argc, char *const argv[])
@@ -32,17 +25,14 @@ int main(const int argc, char *const argv[])
                         exit(EXIT_SUCCESS);
                         break;
                 default:
+                        exit(EXIT_FAILURE);
                         break;
                 }
         }
 
         blx = blx_create(100, 100);
-
-        blx_color(blx, BLACK);
-        blx_frec(blx, 0, 0, 100, 100);
-
-        blx_run(blx, &run);
-
+        blx_show(blx);
+        blx_loop(blx, &update);
         blx_destroy(&blx);
 
         return EXIT_SUCCESS;
